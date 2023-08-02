@@ -1,0 +1,39 @@
+# Игнорирование всех файлов с расширениями .json, .md и .log
+*.json
+*.md
+*.log
+
+# Игнорирование директории "node_modules"
+node_modules/
+
+# Игнорирование папки сборки React Native (обычно "ios" и "android")
+ios/
+android/
+
+# Игнорирование файлов с расширениями связанными с бинарными данными или настройками Xcode или Android Studio
+*.xcworkspace
+*.xcuserdatad
+*.iml
+
+# Игнорирование других временных или сгенерированных файлов
+.vscode/
+*.log
+*.pot
+*.po
+*.scss
+*.sass
+*.css
+*.eot
+*.svg
+*.ttf
+*.woff
+*.woff2
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.ico
+*.pdf
+*.lock
+*.psd
+*.ai
