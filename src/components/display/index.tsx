@@ -1,14 +1,17 @@
 import { Text, ScrollView } from 'react-native';
 import { useRef, useEffect } from 'react';
-import { incrimentButtons } from '../../constants/buttons';
-import { Container, styles } from './styles';
-import { StyledText } from '../../../styles/styled';
 
+import { incrimentButtons, inputFontSize, resultFontSize, splitPattern } from '../../constants';
+import { StyledText } from '../../../styles/globalStyles';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import splitNumber from '../../helpingFunctions/splitNumber';
+
+import { Container, styles } from './styles';
 
 interface IDisplayProps {
   inputValue: string;
   resultValue: string;
+  isInput: boolean;
   flex: number;
 }
 function Display(props: IDisplayProps) {
@@ -21,18 +24,16 @@ function Display(props: IDisplayProps) {
     }
   }, [props.inputValue]);
 
-  const equationTextElements = props.inputValue.split('').map((x, index) => {
-    if (Object.values(incrimentButtons).includes(x)) {
-      return (
-        <Text key={index} style={theme.display.signColor}>
-          {x}
-        </Text>
-      );
-    } else {
-      return (
-        <Text key={index} style={theme.display.inputTextColor}>
-          {x}
-        </Text>
+  const inputValueArr = props.inputValue.match(splitPattern);
+
+  const equationTextElements = inputValueArr?.map((token, index) => {
+    if (Object.values(incrimentButtons).includes(token)) {
+      return (<Text key={index} style={theme.display.signColor}>{token}</Text>);
+    }
+    else {
+      token = splitNumber(token)
+
+      return (<Text key={index} >{token}</Text>
       );
     }
   });
@@ -44,17 +45,21 @@ function Display(props: IDisplayProps) {
         contentContainerStyle={styles.contentContainerStyle}
         showsVerticalScrollIndicator={false}>
         <StyledText
-          fontSize="30px"
-          textColor={theme.display.inputTextColor.color}>
+          fontSize={props.isInput ? inputFontSize.large : inputFontSize.small}
+          textColor={props.isInput ?
+            theme.display.resultTextColor.color :
+            theme.display.inputTextColor.color}>
           {equationTextElements}
         </StyledText>
       </ScrollView>
       <StyledText
-        fontSize="50px"
-        textColor={theme.display.resultTextColor.color}>
+        fontSize={props.isInput ? resultFontSize.small : resultFontSize.large}
+        textColor={props.isInput ?
+          theme.display.inputTextColor.color :
+          theme.display.resultTextColor.color} >
         ={props.resultValue}
       </StyledText>
-    </Container>
+    </Container >
   );
 }
 

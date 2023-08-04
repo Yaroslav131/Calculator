@@ -8,7 +8,8 @@ interface ContainerProps {
 export const Container = styled(View)<ContainerProps>`
   flex: 1;
   width: 100%;
-  padding-right: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
   align-items: flex-end;
   justify-content: flex-end;
 

@@ -3,9 +3,9 @@ import {StyleSheet, Dimensions, View} from 'react-native';
 import styled from 'styled-components/native';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-const buttonHeight = screenWidth * 0.18;
+const buttonHeight = screenHeight * 0.09;
 const buttonWidth = buttonHeight;
-const margin = 8;
+const margin = 9;
 
 export const ColumnContainer = styled(View)`
   flex-direction: row;
@@ -17,7 +17,6 @@ export const RowContainer = styled(View)`
 `;
 
 export const styles = StyleSheet.create({
-  keypadContainer: {},
   horizontalContainer: {
     flexDirection: 'row',
   },
