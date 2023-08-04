@@ -1,5 +1,6 @@
 export function reverseSign(expression: string): string {
     const splitRegex = /(\d+|\⨯|\/|%|[()+-])/g;
+    
     let stringArr = expression.match(splitRegex) || [];
 
     if (!isNaN(parseFloat(stringArr[stringArr.length - 1]))) {

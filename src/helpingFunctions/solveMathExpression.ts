@@ -1,28 +1,39 @@
+import { operators } from "../constants";
+
 export function solveMathExpression(expression: string): string | null {
-    const sanitizedExpression = replaceMultiplicationSymbol(expression)
-    let result = calculateMathString(sanitizedExpression)?.toString()
+    let result = calculateMathString(replaceExpression(expression))?.toString()
     if (result) {
 
-        return result.toString()
+        return formatNumber(result)
     }
     else {
         return null
     }
 }
 
-function replaceMultiplicationSymbol(expression: string): string {
-    return expression.replace(/⨯/g, '*');
+function replaceExpression(inputString: string): string {   
+    const pattern = /(\d+)\s*-\s*(\d+)/g;
+
+    const outputString = inputString.replace(pattern, (_, num1, num2) => `${num1}+(-${num2})`);
+
+    return outputString;
 }
 
-function calculateMathString(mathString: string): number | null {
-    const operators: { [key: string]: number } = {
-        "+": 1,
-        "-": 1,
-        "*": 2,
-        "/": 2,
-        "%": 2,
-    };
+function formatNumber(input: string) {
+    let number = parseFloat(input);
+    if (isNaN(number)) {
+        return null;
+    }
 
+    if (Math.abs(number) >= 1e6) {
+        return number.toExponential(2);
+    } else {
+        return number.toFixed(3).replace(/\.?0+$/, "");
+    }
+}
+
+
+function calculateMathString(mathString: string): number | null {
     const isOperator = (char: string): boolean => operators.hasOwnProperty(char);
     const isHigherPrecedence = (op1: string, op2: string): boolean =>
         operators[op1] >= operators[op2];
@@ -83,7 +94,7 @@ function calculateMathString(mathString: string): number | null {
                     case "-":
                         stack.push(a - b);
                         break;
-                    case "*":
+                    case "⨯":
                         stack.push(a * b);
                         break;
                     case "/":
@@ -107,7 +118,7 @@ function calculateMathString(mathString: string): number | null {
         return stack.length === 1 ? stack[0] : null;
     };
 
-    const tokens = mathString.match(/\*?\+|-?\d+(\.\d+)?|[+\-*\/%()]/g);
+    const tokens = mathString.match(/\⨯?\+|-?\d+(\.\d+)?|[+\-⨯\/%()]/g);
 
     console.log(tokens)
 
