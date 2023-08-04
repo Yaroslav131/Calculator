@@ -1,7 +1,7 @@
 import {StyleSheet, Text} from 'react-native';
 import {styled} from 'styled-components/native';
 
-export const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
   headerText: {
     fontFamily: 'poppins',
     fontWeight: 'bold',

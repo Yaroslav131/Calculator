@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { dackColors } from '../themes/dark';
-import { ligthColors } from '../themes/lignt';
-import { IThemeColors } from '../types/IThemeColors';
+import { darkColors, ligthColors } from '../themes';
+
+import { IThemeColors } from '../types';
 
 interface InputExpressionState {
   name: string
@@ -9,7 +9,7 @@ interface InputExpressionState {
 }
 
 const initialState: InputExpressionState = {
-  value: dackColors,
+  value: darkColors,
   name: 'dark'
 };
 
@@ -19,7 +19,7 @@ export const themeSlice = createSlice({
   reducers: {
     changeTheme: state => {
       state.name = state.name === "dark" ? "light" : "dark"
-      state.value = state.name === "dark" ? ligthColors : dackColors;
+      state.value = state.name === "dark" ? darkColors :  ligthColors;
     },
   },
 });

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {HistoryType} from '../types/historyType';
+import {HistoryType} from '../types';
 
 interface HistoryState {
   value: HistoryType[];
