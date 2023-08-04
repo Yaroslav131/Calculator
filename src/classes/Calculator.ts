@@ -1,14 +1,17 @@
-import { solveMathExpression } from "../helpingFunctions";
+import { solveMathExpression } from "../helpingFunctions/solveMathExpression";
 import { reverseSign } from "../helpingFunctions/reverseSign";
-import { HistoryType } from "../types/historyType";
+import isCorrectNumberLenght from "../helpingFunctions/checkNumberLenght";
 
 export default class Calculator {
     public currentValue: string | null = "0";
     public buffer: string = '';
-    public history: HistoryType[] = [];
 
     add(value: string) {
-        this.buffer += value;
+        const preliminary = this.buffer + value
+        if (isCorrectNumberLenght(preliminary)) {
+            this.buffer += value;
+        }
+
         this.currentValue = solveMathExpression(this.buffer) === null
             ? this.currentValue : solveMathExpression(this.buffer)
     }
@@ -30,16 +33,7 @@ export default class Calculator {
         this.currentValue = "0";
     }
     result() {
-        this.currentValue = solveMathExpression(this.buffer)
-        this.addToHistory()
-    }
-    private addToHistory() {
-        this.history.push({
-            inputValue: this.buffer,
-            resultValue: this.currentValue!
-        })
-    }
-    cleanHistory() {
-        this.history = []
+        this.currentValue = this.buffer === "" ? "0" : (solveMathExpression(this.buffer) === null
+            ? "Nan" : solveMathExpression(this.buffer))
     }
 }

@@ -1,3 +1,4 @@
+import { Command } from "../types";
 import Calculator from "./Calculator";
 
 export class AddCommand implements Command {
@@ -41,10 +42,3 @@ export class EqualsCommand implements Command {
   }
 }
 
-export class CleanHistoryCommand implements Command {
-  constructor(private calculator: Calculator) { }
-
-  execute() {
-    this.calculator.cleanHistory();
-  }
-}
