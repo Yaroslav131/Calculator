@@ -1,16 +1,16 @@
 import { Provider } from 'react-redux';
 import React from 'react';
-import { Image, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator,NativeStackNavigationProp  } from '@react-navigation/native-stack';
 
-import CalculatorUI from './src/components/calculator/index';
-import History from './src/components/history/index';
-import { themeControl } from './assets/images';
-import { styles } from './styles/styled';
+import CalculatorScren from './src/screns/calculator';
+import HistoryScreen from './src/screns/history';
+import { globalStyles } from './styles/globalStyles';
 import store from './src/store/store';
 
 const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
@@ -22,39 +22,29 @@ export default function App() {
             headerStyle: {
               backgroundColor: '#fff',
             },
-            headerTintColor: styles.headerText.color,
-            headerTitleStyle: styles.headerText,
+            headerTintColor: globalStyles.headerText.color,
+            headerTitleStyle: globalStyles.headerText,
           }}
           initialRouteName="Calculator">
           <Stack.Screen
             name="Calculator"
-            component={CalculatorUI}
+            component={CalculatorScren}
             options={({ navigation, route }) => ({
-              headerLeft: () => (
-                <TouchableOpacity>
-                  <Image source={themeControl} />
-                </TouchableOpacity>
-              ),
+
               headerRight: () => (
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('History');
                   }}>
-                  <Text style={styles.headerText}>History</Text>
+                  <Text style={globalStyles.headerText}>History</Text>
                 </TouchableOpacity>
               ),
             })}
           />
           <Stack.Screen
             name="History"
-            component={History}
-            options={() => ({
-              headerRight: () => (
-                <TouchableOpacity>
-                  <Text style={styles.headerText}>Clean</Text>
-                </TouchableOpacity>
-              ),
-            })}
+            component={HistoryScreen}
+
           />
         </Stack.Navigator>
       </NavigationContainer>
