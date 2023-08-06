@@ -45,6 +45,7 @@ function Display(props: IDisplayProps) {
         contentContainerStyle={styles.contentContainerStyle}
         showsVerticalScrollIndicator={false}>
         <StyledText
+         testID={"input"}
           fontSize={props.isInput ? inputFontSize.large : inputFontSize.small}
           textColor={props.isInput ?
             theme.display.resultTextColor.color :

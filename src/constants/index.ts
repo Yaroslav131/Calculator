@@ -30,7 +30,7 @@ export const buttonNumberFlatList = ['4', '5', '6', '1', '2', '3'];
 
 export const maxNumberLangth = 16;
 
-export const splitPattern = /(\d+\.\d+|\d+|[+\-⨯/%()])/g;
+export const splitPattern = /(\d+\.\d+|\d+|[+\-⨯\/.%()])/g;
 
 export const resultFontSize = { small: "30px", large: "40px" }
 export const inputFontSize = { small: "25px", large: "35px" }
