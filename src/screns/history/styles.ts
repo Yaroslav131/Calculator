@@ -1,11 +1,11 @@
-import {styled} from 'styled-components/native';
-import {Text, View} from 'react-native';
+import { styled } from 'styled-components/native';
+import { View } from 'react-native';
 
 interface ContainerProps {
   backgroundColor?: string;
 }
 
-export const Container = styled(View)<ContainerProps>`
+export const Container = styled(View) <ContainerProps>`
   flex: 1;
   width: 100%;
 

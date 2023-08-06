@@ -1,69 +1,105 @@
 import { FlatList, TouchableOpacity, Text } from 'react-native';
-import { useEffect } from "react"
+import { Component, useEffect } from "react"
+import { ConnectedProps, connect } from 'react-redux';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { StyledText, globalStyles } from '../../../styles/globalStyles';
 import { Container, ItemContainer } from './styles';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { resetHistory } from '../../slices/historySlice';
+import { RootState } from '../../store/store';
+import { Dispatch } from '@reduxjs/toolkit';
 
 
-type ItemProps = {
+interface ItemProps {
   inputValue: string;
   resultValue: string;
-};
+}
 
-interface HistoryScreenProps {
-  navigation: NativeStackNavigationProp<any, any>
-};
+interface HistoryScreenState {
+  resverseHistory: ItemProps[];
+}
 
-const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
-  const theme = useAppSelector((state) => state.theme.value)
-  const history = useAppSelector((state) => state.history.value);
-  const dispatch = useAppDispatch();
+interface HistoryScreenProps extends ConnectedProps<typeof connector> {
+  navigation: any;
+}
 
-  const clone = JSON.parse(JSON.stringify(history));
-  const resverseHistory = clone.reverse();
+class HistoryScreen extends Component<HistoryScreenProps, HistoryScreenState> {
+  constructor(props: HistoryScreenProps) {
+    super(props);
+    this.state = {
+      resverseHistory: this.getReversedHistory(),
+    };
+  }
 
-  const keyExtractor = (item: ItemProps, index: number) => index.toString();
+  getReversedHistory = () => {
+    const { history } = this.props;
+    const clone = JSON.parse(JSON.stringify(history));
+    return clone.reverse();
+  };
 
-  const Item = ({ inputValue, resultValue }: ItemProps) => (
+  keyExtractor = (item: ItemProps, index: number) => index.toString();
+
+  Item = ({ inputValue, resultValue }: ItemProps) => (
     <ItemContainer>
       <StyledText
         fontSize="20px"
-        textColor={theme.display.inputTextColor.color}>
+        textColor={this.props.theme.display.inputTextColor.color}>
         {inputValue}
       </StyledText>
       <StyledText
         fontSize="30px"
-        textColor={theme.display.resultTextColor.color}>
+        textColor={this.props.theme.display.resultTextColor.color}>
         ={resultValue}
       </StyledText>
     </ItemContainer>
   );
 
-  useEffect(() => {
-    navigation.setOptions({
+  componentDidMount() {
+    this.props.navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => dispatch(resetHistory())}>
+        <TouchableOpacity onPress={() => {
+          this.props.resetHistory()
+          this.setState({
+            resverseHistory: []
+          });
+          ///кастыль спросить
+        }}>
           <Text style={globalStyles.headerText}>Clean</Text>
         </TouchableOpacity>
       ),
-    })
+    });
+  }
 
-  }, [navigation]);
+  render() {
+    const { theme } = this.props;
+    const { resverseHistory } = this.state;
 
-  return (
-    <Container backgroundColor={theme.background.backgroundColor}>
-      <FlatList
-        data={resverseHistory}
-        renderItem={({ item }) => (
-          <Item inputValue={item.inputValue} resultValue={item.resultValue} />
-        )}
-        keyExtractor={keyExtractor}
-        numColumns={1}
-      />
-    </Container>
-  );
+    return (
+      <Container style={{ backgroundColor: theme.background.backgroundColor }}>
+        <FlatList
+          data={resverseHistory}
+          renderItem={({ item }) => (
+            <this.Item inputValue={item.inputValue} resultValue={item.resultValue} />
+          )}
+          keyExtractor={this.keyExtractor}
+          numColumns={1}
+        />
+      </Container>
+    );
+  }
 }
-export default HistoryScreen;
+
+const mapStateToProps = (state: RootState) => ({
+  theme: state.theme.value,
+  history: state.history.value,
+});
+
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  resetHistory: () => dispatch(resetHistory()),
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(HistoryScreen);
