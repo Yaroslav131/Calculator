@@ -10,7 +10,7 @@ const initialState: HistoryState = {
 };
 
 export const historySlice = createSlice({
-  name: 'result',
+  name: 'history',
   initialState,
   reducers: {
     addToHistory: (state, action: PayloadAction<HistoryType>) => {
