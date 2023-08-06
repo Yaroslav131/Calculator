@@ -1,7 +1,7 @@
 import { operators } from "../constants";
 
 export function solveMathExpression(expression: string): string | null {
-    let result = calculateMathString(replaceExpression(expression))?.toString()
+    let result = calculateMathString(expression)?.toString()
     if (result) {
 
         return formatNumber(result)
@@ -11,13 +11,14 @@ export function solveMathExpression(expression: string): string | null {
     }
 }
 
-function replaceExpression(inputString: string): string {   
-    const pattern = /(\d+)\s*-\s*(\d+)/g;
+// function replaceExpression(inputString: string): string {   
+//     const pattern = /(\d+(\.\d+)?)\s*-\s*(\d+(\.\d+)?)/g;
 
-    const outputString = inputString.replace(pattern, (_, num1, num2) => `${num1}+(-${num2})`);
 
-    return outputString;
-}
+//     const outputString = inputString.replace(pattern, (_, num1, num2) => `${num1}+-${num2}`);
+
+//     return outputString;
+// }
 
 function formatNumber(input: string) {
     let number = parseFloat(input);
@@ -82,6 +83,8 @@ function calculateMathString(mathString: string): number | null {
             } else if (isOperator(token)) {
                 const b = stack.pop();
                 const a = stack.pop();
+                console.log("///////////////////////////")
+
                 console.log(token)
                 console.log(a, b)
                 if (a === undefined || b === undefined) {
@@ -118,7 +121,7 @@ function calculateMathString(mathString: string): number | null {
         return stack.length === 1 ? stack[0] : null;
     };
 
-    const tokens = mathString.match(/\⨯?\+|-?\d+(\.\d+)?|[+\-⨯\/%()]/g);
+    const tokens = mathString.match(/(?<!\d)(?:(?<!\d)-)?\d+(\.\d+)?|[+\-⨯\/%()]/g);
 
     console.log(tokens)
 

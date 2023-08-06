@@ -1,31 +1,17 @@
-export function reverseSign(expression: string): string {
-    const splitRegex = /(\d+|\⨯|\/|%|[()+-])/g;
-    
-    let stringArr = expression.match(splitRegex) || [];
+export function reverseSign(expression: string) {
+    const tokens = expression.match(/(?:(?<!\d)-)?\d+(\.\d+)?|[+\-⨯\/%()]/g);
 
-    if (!isNaN(parseFloat(stringArr[stringArr.length - 1]))) {
-        if (stringArr.length == 1) {
-            stringArr[stringArr.length - 1] = (parseFloat(stringArr[stringArr.length - 1]) * -1).toString()
-        }
-        else if (stringArr[0] == "-" && stringArr.length == 2) {
-            stringArr.splice(0, 1)
-        }
-        else if (stringArr[stringArr.length - 2] == "-") {
-            if (stringArr[stringArr.length - 3] && isNaN(parseFloat(stringArr[stringArr.length - 3]))) {
-                stringArr.splice(stringArr.length - 2, 1)
-            }
-            else {
-                stringArr[stringArr.length - 2] = "+"
-            }
-
-        }
-        else if (stringArr[stringArr.length - 2] == "+") {
-            stringArr[stringArr.length - 2] = "-"
-        }
-        else {
-            stringArr[stringArr.length - 1] = (parseInt(stringArr[stringArr.length - 1]) * -1).toString()
-        }
+    if (!tokens) {
+        return expression; 
     }
 
-    return stringArr.join('');
+    const lastToken = tokens[tokens.length - 1];
+
+    if (!isNaN(parseFloat(lastToken))) {
+        const lastNumber = parseFloat(lastToken);
+        const sign = lastNumber >= 0 ? '-' : ''; 
+        return expression.replace(/(?:(?<!\d)-)?\d+(\.\d+)?$/, `${sign}${Math.abs(lastNumber)}`);
+    }
+
+    return expression;
 }
