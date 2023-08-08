@@ -54,6 +54,7 @@ function Display(props: IDisplayProps) {
         </StyledText>
       </ScrollView>
       <StyledText
+         testID={"result"}
         fontSize={props.isInput ? resultFontSize.small : resultFontSize.large}
         textColor={props.isInput ?
           theme.display.inputTextColor.color :
