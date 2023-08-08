@@ -25,7 +25,7 @@ const CustomButton: React.FC<ButtonProps> = ({
   onPress
 }) => {
   return (
-    <CustomTouchableOpacity testID={`button_${title}`} style={[buttonStyle]} onPress={onPress}>
+    <CustomTouchableOpacity testID="MyUniqueId123" style={[buttonStyle]} onPress={onPress}>
       {children}
       {title &&
         (isSmallButton ? (
