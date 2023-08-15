@@ -1,4 +1,4 @@
-import { ErrorInfo, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export interface ErrorBoundaryProps {
     children: ReactNode;
@@ -7,5 +7,4 @@ export interface ErrorBoundaryProps {
 export interface ErrorBoundaryState {
     hasError: boolean;
     error: Error | null;
-    errorInfo: ErrorInfo | null;
 }

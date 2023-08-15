@@ -1,7 +1,10 @@
 import { View } from 'react-native';
+import React from 'react';
+
 import CustomButton from './button';
 import { ColumnContainer, RowContainer, styles } from './styles';
 import KeypadFlatList from './keypadFlatList';
+
 import { backDeleteImg } from '../../../assets/images';
 import {
   buttonNumberFlatList,
@@ -16,23 +19,29 @@ import {
   CleanCommand,
   DeleteCommand,
   ChangeSignCommand,
-  AddCommand
+  AddCommand,
 } from '../../classes/Commands';
 import { Command } from '../../types';
 
 interface KeypadProps {
-  flex: number;
+  propsFlex: number;
+  // eslint-disable-next-line no-unused-vars
   handleButtonPress: (comand: Command) => void
   calculator: Calculator
   handleResultButtonPress: () => void
 }
 
-function Keypad(props: KeypadProps) {
-  const theme = useAppSelector((state) => state.theme.value)
+function Keypad({
+  propsFlex,
+  handleButtonPress,
+  calculator,
+  handleResultButtonPress,
+}: KeypadProps) {
+  const theme = useAppSelector((state) => state.theme.value);
 
   const topKeypadButtonsData = [
     {
-      onPress: () => props.handleButtonPress(new ChangeSignCommand(props.calculator)),
+      onPress: () => handleButtonPress(new ChangeSignCommand(calculator)),
       isSmallButton: true,
       textColor: theme.keypadButtons.button.textColor,
       buttonStyle: [
@@ -42,7 +51,9 @@ function Keypad(props: KeypadProps) {
       title: incrimentButtons.plusMinus,
     },
     {
-      onPress: () => props.handleButtonPress(new AddCommand(props.calculator, incrimentButtons.leftParenthesis)),
+      onPress: () => handleButtonPress(
+        new AddCommand(calculator, incrimentButtons.leftParenthesis),
+      ),
       isSmallButton: true,
       textColor: theme.keypadButtons.button.textColor,
       buttonStyle: [
@@ -53,8 +64,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, incrimentButtons.rightParenthesis))
-
+        handleButtonPress(new AddCommand(calculator, incrimentButtons.rightParenthesis));
       },
       isSmallButton: true,
       textColor: theme.keypadButtons.button.textColor,
@@ -66,8 +76,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, incrimentButtons.percent))
-
+        handleButtonPress(new AddCommand(calculator, incrimentButtons.percent));
       },
       isSmallButton: true,
       textColor: theme.keypadButtons.button.textColor,
@@ -79,7 +88,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new CleanCommand(props.calculator))
+        handleButtonPress(new CleanCommand(calculator));
       },
       textColor: theme.keypadButtons.deleteButton.textColor,
       buttonStyle: [
@@ -90,8 +99,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new DeleteCommand(props.calculator))
-
+        handleButtonPress(new DeleteCommand(calculator));
       },
       textColor: theme.keypadButtons.deleteButton.textColor,
       buttonStyle: [
@@ -102,8 +110,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, incrimentButtons.divide))
-
+        handleButtonPress(new AddCommand(calculator, incrimentButtons.divide));
       },
       textColor: theme.keypadButtons.incrementButton.textColor,
       buttonStyle: [
@@ -113,7 +120,7 @@ function Keypad(props: KeypadProps) {
       title: incrimentButtons.divide,
     },
     {
-      onPress: () => props.handleButtonPress(new AddCommand(props.calculator, incrimentButtons.multiply)),
+      onPress: () => handleButtonPress(new AddCommand(calculator, incrimentButtons.multiply)),
       textColor: theme.keypadButtons.incrementButton.textColor,
       buttonStyle: [
         styles.butonStyle,
@@ -123,8 +130,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, numberButtons.seven))
-
+        handleButtonPress(new AddCommand(calculator, numberButtons.seven));
       },
       textColor: theme.keypadButtons.button.textColor,
       buttonStyle: [styles.butonStyle, theme.keypadButtons.button.buttonStyle],
@@ -132,8 +138,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, numberButtons.eight))
-
+        handleButtonPress(new AddCommand(calculator, numberButtons.eight));
       },
       textColor: theme.keypadButtons.button.textColor,
       buttonStyle: [styles.butonStyle, theme.keypadButtons.button.buttonStyle],
@@ -141,8 +146,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, numberButtons.nine))
-
+        handleButtonPress(new AddCommand(calculator, numberButtons.nine));
       },
       textColor: theme.keypadButtons.button.textColor,
       buttonStyle: [styles.butonStyle, theme.keypadButtons.button.buttonStyle],
@@ -150,8 +154,7 @@ function Keypad(props: KeypadProps) {
     },
     {
       onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, incrimentButtons.minus))
-
+        handleButtonPress(new AddCommand(calculator, incrimentButtons.minus));
       },
       textColor: theme.keypadButtons.incrementButton.textColor,
       buttonStyle: [
@@ -162,22 +165,20 @@ function Keypad(props: KeypadProps) {
     },
   ];
 
-  const bottomKeypadButtonsData = buttonNumberFlatList.map(title => {
-    return {
-      onPress: () => {
-        props.handleButtonPress(new AddCommand(props.calculator, title))
-
-      },
-      textColor: theme.keypadButtons.button.textColor,
-      buttonStyle: [styles.butonStyle, theme.keypadButtons.button.buttonStyle],
-      title,
-    };
-  });
+  const bottomKeypadButtonsData = buttonNumberFlatList.map((title) => ({
+    onPress: () => {
+      handleButtonPress(new AddCommand(calculator, title));
+    },
+    textColor: theme.keypadButtons.button.textColor,
+    buttonStyle: [styles.butonStyle, theme.keypadButtons.button.buttonStyle],
+    title,
+  }));
 
   return (
     <View
-      style={[{ flex: props.flex }]}>
-      <View >
+      style={[{ flex: propsFlex }]}
+    >
+      <View>
         <KeypadFlatList numColumn={4} data={topKeypadButtonsData} />
 
         <ColumnContainer>
@@ -187,10 +188,8 @@ function Keypad(props: KeypadProps) {
             <View style={styles.horizontalContainer}>
               <CustomButton
                 onPress={() => {
-                  props.handleButtonPress(new AddCommand(props.calculator, numberButtons.zero))
-
-                }
-                }
+                  handleButtonPress(new AddCommand(calculator, numberButtons.zero));
+                }}
                 textStyle={theme.keypadButtons.button.textColor}
                 buttonStyle={[
                   styles.largeButonStyle,
@@ -200,8 +199,7 @@ function Keypad(props: KeypadProps) {
               />
               <CustomButton
                 onPress={() => {
-                  props.handleButtonPress(new AddCommand(props.calculator, numberButtons.dot))
-
+                  handleButtonPress(new AddCommand(calculator, numberButtons.dot));
                 }}
                 textStyle={theme.keypadButtons.button.textColor}
                 buttonStyle={[
@@ -215,8 +213,7 @@ function Keypad(props: KeypadProps) {
           <RowContainer>
             <CustomButton
               onPress={() => {
-                props.handleButtonPress(new AddCommand(props.calculator, incrimentButtons.plus))
-
+                handleButtonPress(new AddCommand(calculator, incrimentButtons.plus));
               }}
               textStyle={theme.keypadButtons.incrementButton.textColor}
               buttonStyle={[
@@ -227,8 +224,8 @@ function Keypad(props: KeypadProps) {
             />
             <CustomButton
               onPress={() => {
-                props.handleButtonPress(new EqualsCommand(props.calculator)),
-                  props.handleResultButtonPress()
+                handleButtonPress(new EqualsCommand(calculator));
+                handleResultButtonPress();
               }}
               textStyle={theme.keypadButtons.resultButton.textColor}
               buttonStyle={[

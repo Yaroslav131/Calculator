@@ -1,4 +1,4 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import themeSlice from '../slices/themeSlice';
 import historySlice from '../slices/historySlice';
 

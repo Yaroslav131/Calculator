@@ -1,5 +1,8 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable class-methods-use-this */
 import { FlatList, TouchableOpacity, Text } from 'react-native';
-import { Component } from "react"
+import React, { Component } from 'react';
 import { ConnectedProps, connect } from 'react-redux';
 import { Dispatch } from '@reduxjs/toolkit';
 
@@ -17,6 +20,7 @@ interface HistoryScreenState {
   resverseHistory: ItemProps[];
 }
 
+// eslint-disable-next-line no-use-before-define
 interface HistoryScreenProps extends ConnectedProps<typeof connector> {
   navigation: any;
 }
@@ -29,44 +33,48 @@ class HistoryScreen extends Component<HistoryScreenProps, HistoryScreenState> {
     };
   }
 
-  getReversedHistory = () => {
-    const { history } = this.props;
-    const clone = [...history];
-    return clone.reverse();
-  };
-
-  keyExtractor = (item: ItemProps, index: number) => index.toString();
-
-  Item = ({ inputValue, resultValue }: ItemProps) => (
-    <ItemContainer>
-      <StyledText
-        fontSize="20px"
-        textColor={this.props.theme.display.inputTextColor.color}>
-        {inputValue}
-      </StyledText>
-      <StyledText
-        fontSize="30px"
-        textColor={this.props.theme.display.resultTextColor.color}>
-        ={resultValue}
-      </StyledText>
-    </ItemContainer>
-  );
-
   componentDidMount() {
     this.props.navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => {
-          this.props.resetHistory()
+          this.props.resetHistory();
           this.setState({
-            resverseHistory: []
+            resverseHistory: [],
           });
-          ///кастыль спросить
-        }}>
+        }}
+        >
           <Text style={globalStyles.headerText}>Clean</Text>
         </TouchableOpacity>
       ),
     });
   }
+
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  Item = ({ inputValue, resultValue }: ItemProps) => (
+    <ItemContainer>
+      <StyledText
+        fontSize="20px"
+        textColor={this.props.theme.display.inputTextColor.color}
+      >
+        {inputValue}
+      </StyledText>
+      <StyledText
+        fontSize="30px"
+        textColor={this.props.theme.display.resultTextColor.color}
+      >
+        =
+        {resultValue}
+      </StyledText>
+    </ItemContainer>
+  );
+
+  keyExtractor = (item: ItemProps, index: number) => index.toString();
+
+  getReversedHistory = () => {
+    const { history } = this.props;
+    const clone = [...history];
+    return clone.reverse();
+  };
 
   render() {
     const { theme } = this.props;
@@ -91,7 +99,6 @@ const mapStateToProps = (state: RootState) => ({
   theme: state.theme.value,
   history: state.history.value,
 });
-
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   resetHistory: () => dispatch(resetHistory()),

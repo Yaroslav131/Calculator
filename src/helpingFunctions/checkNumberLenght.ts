@@ -1,18 +1,17 @@
-import { maxNumberLangth, splitPattern } from "../constants";
+import { maxNumberLangth, splitPattern } from '../constants';
 
 export default function isCorrectNumberLenght(input: string): boolean {
-    const tokens = input.match(splitPattern);
+  const tokens = input.match(splitPattern);
 
-    if (!tokens) {
-        return true;
-    }
+  if (!tokens) {
+    return true;
+  }
 
-    const lastToken = tokens[tokens?.length - 1]
+  const lastToken = tokens[tokens.length - 1];
 
-    if (isNaN(parseFloat(lastToken))) {
-        return true;
-    }
-    else {
-        return lastToken.split('').length > maxNumberLangth ? false : true
-    }
+  if (Number.isNaN(parseFloat(lastToken))) {
+    return true;
+  }
+
+  return !(lastToken.split('').length > maxNumberLangth);
 }

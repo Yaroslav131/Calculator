@@ -2,8 +2,10 @@ import { View } from 'react-native';
 
 import styled from 'styled-components/native';
 
-export const ErrorContainer = styled(View)`
- flex:1;
- justifycontent: 'center';
- align-items: center;
+const ErrorContainer = styled(View)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
+
+export default ErrorContainer;

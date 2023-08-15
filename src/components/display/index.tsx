@@ -1,10 +1,15 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+/* eslint-disable react/no-array-index-key */
 import { Text, ScrollView } from 'react-native';
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
-import { incrimentButtons, inputFontSize, resultFontSize, splitPattern } from '../../constants';
+import {
+  incrimentButtons, inputFontSize, resultFontSize, splitPattern,
+} from '@/constants';
 import { StyledText } from '../../../styles/globalStyles';
-import { useAppSelector } from '../../hooks/reduxHooks';
-import splitNumber from '../../helpingFunctions/splitNumber';
+import { useAppSelector } from '@/hooks/reduxHooks';
+import splitNumber from '@/helpingFunctions/splitNumber';
 
 import { Container, styles } from './styles';
 
@@ -14,54 +19,60 @@ interface IDisplayProps {
   isInput: boolean;
   flex: number;
 }
-function Display(props: IDisplayProps) {
+function Display({
+  inputValue, resultValue, isInput, flex,
+}: IDisplayProps) {
   const scrollViewRef = useRef<ScrollView>(null);
-  const theme = useAppSelector((state) => state.theme.value)
+  const theme = useAppSelector((state) => state.theme.value);
 
   useEffect(() => {
     if (scrollViewRef.current) {
       scrollViewRef.current?.scrollToEnd({ animated: false });
     }
-  }, [props.inputValue]);
+  }, [inputValue]);
 
-  const inputValueArr = props.inputValue.match(splitPattern);
+  const inputValueArr = inputValue.match(splitPattern);
 
   const equationTextElements = inputValueArr?.map((token, index) => {
+    let modifiedToken = token;
+
     if (Object.values(incrimentButtons).includes(token)) {
       return (<Text key={index} style={theme.display.signColor}>{token}</Text>);
     }
-    else {
-      token = splitNumber(token)
 
-      return (<Text key={index} >{token}</Text>
-      );
-    }
+    modifiedToken = splitNumber(token);
+
+    return (<Text key={index}>{modifiedToken}</Text>);
   });
 
   return (
-    <Container flex={props.flex}>
+    <Container flex={flex}>
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={styles.contentContainerStyle}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <StyledText
-         testID={"input"}
-          fontSize={props.isInput ? inputFontSize.large : inputFontSize.small}
-          textColor={props.isInput ?
-            theme.display.resultTextColor.color :
-            theme.display.inputTextColor.color}>
+          testID="input"
+          fontSize={isInput ? inputFontSize.large : inputFontSize.small}
+          textColor={isInput
+            ? theme.display.resultTextColor.color
+            : theme.display.inputTextColor.color}
+        >
           {equationTextElements}
         </StyledText>
       </ScrollView>
       <StyledText
-         testID={"result"}
-        fontSize={props.isInput ? resultFontSize.small : resultFontSize.large}
-        textColor={props.isInput ?
-          theme.display.inputTextColor.color :
-          theme.display.resultTextColor.color} >
-        ={props.resultValue}
+        testID="result"
+        fontSize={isInput ? resultFontSize.small : resultFontSize.large}
+        textColor={isInput
+          ? theme.display.inputTextColor.color
+          : theme.display.resultTextColor.color}
+      >
+        =
+        {resultValue}
       </StyledText>
-    </Container >
+    </Container>
   );
 }
 

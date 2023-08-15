@@ -16,27 +16,36 @@ interface ButtonProps {
   isSmallButton?: boolean;
 }
 
-const CustomButton: React.FC<ButtonProps> = ({
+function CustomButton({
   title,
   buttonStyle,
   textStyle,
   children,
   isSmallButton,
-  onPress
-}) => {
+  onPress,
+}: ButtonProps) {
   return (
     <CustomTouchableOpacity testID="MyUniqueId123" style={[buttonStyle]} onPress={onPress}>
       {children}
-      {title &&
-        (isSmallButton ? (
+      {
+        title
+        && (isSmallButton ? (
           <CustomSmallButtonText style={textStyle}>
             {title}
           </CustomSmallButtonText>
         ) : (
           <CustomButtonText style={textStyle}>{title}</CustomButtonText>
-        ))}
+        ))
+      }
     </CustomTouchableOpacity>
   );
+}
+
+CustomButton.defaultProps = {
+  title: '',
+  textStyle: {},
+  children: null,
+  isSmallButton: false,
 };
 
 export default CustomButton;

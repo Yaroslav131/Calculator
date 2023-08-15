@@ -1,3 +1,12 @@
 {
-    "plugins": ["@babel/plugin-transform-react-jsx-source"]
+    "plugins": ["@babel/plugin-transform-react-jsx-source", 
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@": "./src" 
+        }
+      }
+    ]
+  ]
   }

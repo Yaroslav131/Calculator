@@ -26,15 +26,15 @@ interface KeypadProps {
   styles?: StyleProp<ViewStyle>;
 }
 
-const KeypadFlatList: React.FC<KeypadProps> = ({ data, numColumn, styles }) => {
-  
+function KeypadFlatList({ data, numColumn, styles }: KeypadProps) {
   const renderItem: ListRenderItem<KeypadButton> = ({ item }) => (
     <CustomButton
       onPress={item.onPress}
       isSmallButton={item.isSmallButton}
       textStyle={item.textColor}
       buttonStyle={item.buttonStyle}
-      title={item.title}>
+      title={item.title}
+    >
       {item.image && <Image source={item.image} />}
     </CustomButton>
   );
@@ -51,6 +51,10 @@ const KeypadFlatList: React.FC<KeypadProps> = ({ data, numColumn, styles }) => {
       />
     </View>
   );
+}
+
+KeypadFlatList.defaultProps = {
+  styles: null,
 };
 
 export default KeypadFlatList;

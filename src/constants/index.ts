@@ -7,7 +7,7 @@ export const incrimentButtons = {
   minus: '-',
   divide: '/',
   multiply: '⨯',
-  result: '='
+  result: '=',
 };
 
 export const clearnButton = 'Ac';
@@ -30,23 +30,23 @@ export const buttonNumberFlatList = ['4', '5', '6', '1', '2', '3'];
 
 export const maxNumberLangth = 16;
 
-export const splitPattern = /(\d+\.\d+|\d+|[+\-⨯\/.%()])/g;
+export const splitPattern = /(\d+\.\d+|\d+|[+\-⨯/.%()])/g;
 
-export const resultFontSize = { small: "30px", large: "40px" }
-export const inputFontSize = { small: "25px", large: "35px" }
+export const resultFontSize = { small: '30px', large: '40px' };
+export const inputFontSize = { small: '25px', large: '35px' };
 
 export const operators: { [key: string]: number } = {
-  "+": 1,
-  "-": 1,
-  "⨯": 2,
-  "/": 2,
-  "%": 2,
+  '+': 1,
+  '-': 1,
+  '⨯': 2,
+  '/': 2,
+  '%': 2,
 };
 
-export const themeNames={
-  dark:"dark",
-  light:"light"
-}
+export const themeNames = {
+  dark: 'dark',
+  light: 'light',
+};
 
-export const splitLength=3
-export const maxNumValue =1e6
+export const splitLength = 3;
+export const maxNumValue = 1e6;

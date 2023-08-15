@@ -11,14 +11,14 @@ interface InputExpressionState {
 
 const initialState: InputExpressionState = {
   value: darkColors,
-  name: themeNames.dark
+  name: themeNames.dark,
 };
 
 export const themeSlice = createSlice({
   name: 'theme',
   initialState,
   reducers: {
-    changeTheme: state => {
+    changeTheme: (state) => {
       const newThemeName = state.name === themeNames.dark ? themeNames.light : themeNames.dark;
       state.name = newThemeName;
 
