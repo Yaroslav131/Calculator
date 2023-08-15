@@ -27,14 +27,14 @@ interface KeypadProps {
 }
 
 const KeypadFlatList: React.FC<KeypadProps> = ({ data, numColumn, styles }) => {
-  
   const renderItem: ListRenderItem<KeypadButton> = ({ item }) => (
     <CustomButton
       onPress={item.onPress}
       isSmallButton={item.isSmallButton}
       textStyle={item.textColor}
       buttonStyle={item.buttonStyle}
-      title={item.title}>
+      title={item.title}
+    >
       {item.image && <Image source={item.image} />}
     </CustomButton>
   );

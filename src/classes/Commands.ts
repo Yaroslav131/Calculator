@@ -1,5 +1,5 @@
-import { Command } from "../types";
-import Calculator from "./Calculator";
+import { Command } from '../types';
+import Calculator from './Calculator';
 
 export class AddCommand implements Command {
   constructor(private calculator: Calculator, private value: string) { }
@@ -25,7 +25,6 @@ export class CleanCommand implements Command {
   }
 }
 
-
 export class DeleteCommand implements Command {
   constructor(private calculator: Calculator) { }
 
@@ -41,4 +40,3 @@ export class EqualsCommand implements Command {
     this.calculator.result();
   }
 }
-

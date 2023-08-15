@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {TouchableOpacity, Text} from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 
 export const CustomTouchableOpacity = styled(TouchableOpacity)`
   align-items: center;

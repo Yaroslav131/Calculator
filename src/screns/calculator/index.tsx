@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
-import { NativeStackNavigationProp  } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import Display from '../../components/display';
 import Keypad from '../../components/keypad';
@@ -16,48 +16,47 @@ import { Container } from './styles';
 const calculator = new Calculator();
 
  interface CalculatorScrenProps {
-  navigation: NativeStackNavigationProp<any,any>
-};
+  navigation: NativeStackNavigationProp<any, any>
+}
 
 const CalculatorScren: React.FC<CalculatorScrenProps> = ({ navigation }) => {
-
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.theme.value)
+  const theme = useAppSelector((state) => state.theme.value);
 
-  const [result, setResult] = useState<string>(calculator.currentValue!)
-  const [inputValue, setInputValue] = useState(calculator.buffer)
-  const [isInput, setIsInput] = useState(true)
+  const [result, setResult] = useState<string>(calculator.currentValue!);
+  const [inputValue, setInputValue] = useState(calculator.buffer);
+  const [isInput, setIsInput] = useState(true);
 
   const handleButtonPress = (command: Command) => {
     command.execute();
-    setInputValue(calculator.buffer)
+    setInputValue(calculator.buffer);
     setResult(calculator.currentValue!);
-    setIsInput(true)
+    setIsInput(true);
   };
 
   const handleResultButtonPress = () => {
-    setIsInput(false)
+    setIsInput(false);
 
     const history: HistoryType = {
       inputValue: calculator.buffer,
       resultValue: calculator.currentValue!,
-    }
+    };
 
-    dispatch(addToHistory(history))
+    dispatch(addToHistory(history));
   };
 
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => {
-          dispatch(changeTheme())
-        }}>
+          dispatch(changeTheme());
+        }}
+        >
           <Image source={themeControl} />
         </TouchableOpacity>
       ),
     });
-    
-  }, [navigation,dispatch]);
+  }, [navigation, dispatch]);
 
   return (
     <Container backgroundColor={theme.background.backgroundColor}>
@@ -67,11 +66,14 @@ const CalculatorScren: React.FC<CalculatorScrenProps> = ({ navigation }) => {
         resultValue={result}
         inputValue={inputValue}
       />
-      <Keypad flex={5}
+      <Keypad
+        flex={5}
         handleResultButtonPress={handleResultButtonPress}
-        handleButtonPress={handleButtonPress} calculator={calculator} />
+        handleButtonPress={handleButtonPress}
+        calculator={calculator}
+      />
     </Container>
   );
-}
+};
 
 export default CalculatorScren;

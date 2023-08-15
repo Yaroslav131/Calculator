@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {HistoryType} from '../types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { HistoryType } from '../types';
 
 interface HistoryState {
   value: HistoryType[];
@@ -16,12 +16,12 @@ export const historySlice = createSlice({
     addToHistory: (state, action: PayloadAction<HistoryType>) => {
       state.value.push(action.payload);
     },
-    resetHistory: state => {
+    resetHistory: (state) => {
       state.value = [];
     },
   },
 });
 
-export const {addToHistory, resetHistory} = historySlice.actions;
+export const { addToHistory, resetHistory } = historySlice.actions;
 
 export default historySlice.reducer;

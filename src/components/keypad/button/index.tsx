@@ -22,21 +22,19 @@ const CustomButton: React.FC<ButtonProps> = ({
   textStyle,
   children,
   isSmallButton,
-  onPress
-}) => {
-  return (
-    <CustomTouchableOpacity testID="MyUniqueId123" style={[buttonStyle]} onPress={onPress}>
-      {children}
-      {title &&
-        (isSmallButton ? (
+  onPress,
+}) => (
+  <CustomTouchableOpacity testID="MyUniqueId123" style={[buttonStyle]} onPress={onPress}>
+    {children}
+    {title
+        && (isSmallButton ? (
           <CustomSmallButtonText style={textStyle}>
             {title}
           </CustomSmallButtonText>
         ) : (
           <CustomButtonText style={textStyle}>{title}</CustomButtonText>
         ))}
-    </CustomTouchableOpacity>
-  );
-};
+  </CustomTouchableOpacity>
+);
 
 export default CustomButton;

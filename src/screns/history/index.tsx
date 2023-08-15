@@ -1,5 +1,5 @@
 import { FlatList, TouchableOpacity, Text } from 'react-native';
-import { Component } from "react"
+import { Component } from 'react';
 import { ConnectedProps, connect } from 'react-redux';
 import { Dispatch } from '@reduxjs/toolkit';
 
@@ -41,13 +41,16 @@ class HistoryScreen extends Component<HistoryScreenProps, HistoryScreenState> {
     <ItemContainer>
       <StyledText
         fontSize="20px"
-        textColor={this.props.theme.display.inputTextColor.color}>
+        textColor={this.props.theme.display.inputTextColor.color}
+      >
         {inputValue}
       </StyledText>
       <StyledText
         fontSize="30px"
-        textColor={this.props.theme.display.resultTextColor.color}>
-        ={resultValue}
+        textColor={this.props.theme.display.resultTextColor.color}
+      >
+        =
+        {resultValue}
       </StyledText>
     </ItemContainer>
   );
@@ -56,12 +59,13 @@ class HistoryScreen extends Component<HistoryScreenProps, HistoryScreenState> {
     this.props.navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => {
-          this.props.resetHistory()
+          this.props.resetHistory();
           this.setState({
-            resverseHistory: []
+            resverseHistory: [],
           });
-          ///кастыль спросить
-        }}>
+          /// кастыль спросить
+        }}
+        >
           <Text style={globalStyles.headerText}>Clean</Text>
         </TouchableOpacity>
       ),
@@ -91,7 +95,6 @@ const mapStateToProps = (state: RootState) => ({
   theme: state.theme.value,
   history: state.history.value,
 });
-
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   resetHistory: () => dispatch(resetHistory()),

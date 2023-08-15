@@ -1,7 +1,9 @@
 import { Text, ScrollView } from 'react-native';
 import { useRef, useEffect } from 'react';
 
-import { incrimentButtons, inputFontSize, resultFontSize, splitPattern } from '../../constants';
+import {
+  incrimentButtons, inputFontSize, resultFontSize, splitPattern,
+} from '../../constants';
 import { StyledText } from '../../../styles/globalStyles';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import splitNumber from '../../helpingFunctions/splitNumber';
@@ -16,7 +18,7 @@ interface IDisplayProps {
 }
 function Display(props: IDisplayProps) {
   const scrollViewRef = useRef<ScrollView>(null);
-  const theme = useAppSelector((state) => state.theme.value)
+  const theme = useAppSelector((state) => state.theme.value);
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -30,12 +32,11 @@ function Display(props: IDisplayProps) {
     if (Object.values(incrimentButtons).includes(token)) {
       return (<Text key={index} style={theme.display.signColor}>{token}</Text>);
     }
-    else {
-      token = splitNumber(token)
 
-      return (<Text key={index} >{token}</Text>
-      );
-    }
+    token = splitNumber(token);
+
+    return (<Text key={index}>{token}</Text>
+    );
   });
 
   return (
@@ -43,25 +44,29 @@ function Display(props: IDisplayProps) {
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={styles.contentContainerStyle}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <StyledText
-         testID={"input"}
+          testID="input"
           fontSize={props.isInput ? inputFontSize.large : inputFontSize.small}
-          textColor={props.isInput ?
-            theme.display.resultTextColor.color :
-            theme.display.inputTextColor.color}>
+          textColor={props.isInput
+            ? theme.display.resultTextColor.color
+            : theme.display.inputTextColor.color}
+        >
           {equationTextElements}
         </StyledText>
       </ScrollView>
       <StyledText
-         testID={"result"}
+        testID="result"
         fontSize={props.isInput ? resultFontSize.small : resultFontSize.large}
-        textColor={props.isInput ?
-          theme.display.inputTextColor.color :
-          theme.display.resultTextColor.color} >
-        ={props.resultValue}
+        textColor={props.isInput
+          ? theme.display.inputTextColor.color
+          : theme.display.resultTextColor.color}
+      >
+        =
+        {props.resultValue}
       </StyledText>
-    </Container >
+    </Container>
   );
 }
 
