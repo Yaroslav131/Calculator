@@ -7,8 +7,6 @@ interface ContainerProps {
 
 export const Container = styled(View) <ContainerProps>`
   flex: 1;
-  width: 100%;
-
   align-items: flex-end;
   background-color: ${props => props.backgroundColor};
 `;
