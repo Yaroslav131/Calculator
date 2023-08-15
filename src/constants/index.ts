@@ -42,3 +42,8 @@ export const operators: { [key: string]: number } = {
   "/": 2,
   "%": 2,
 };
+
+export const themeNames={
+  dark:"dark",
+  light:"light"
+}
