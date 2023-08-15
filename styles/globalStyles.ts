@@ -13,7 +13,6 @@ export const globalStyles = StyleSheet.create({
 interface StyledTextProps {
   textColor: string;
   fontSize: string;
-  fontWeight: string;
 }
 
 export const StyledText = styled(Text) <StyledTextProps>`

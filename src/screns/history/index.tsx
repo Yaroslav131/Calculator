@@ -1,15 +1,12 @@
 import { FlatList, TouchableOpacity, Text } from 'react-native';
-import { Component, useEffect } from "react"
+import { Component } from "react"
 import { ConnectedProps, connect } from 'react-redux';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Dispatch } from '@reduxjs/toolkit';
 
 import { StyledText, globalStyles } from '../../../styles/globalStyles';
 import { Container, ItemContainer } from './styles';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { resetHistory } from '../../slices/historySlice';
 import { RootState } from '../../store/store';
-import { Dispatch } from '@reduxjs/toolkit';
-
 
 interface ItemProps {
   inputValue: string;
@@ -34,7 +31,7 @@ class HistoryScreen extends Component<HistoryScreenProps, HistoryScreenState> {
 
   getReversedHistory = () => {
     const { history } = this.props;
-    const clone = JSON.parse(JSON.stringify(history));
+    const clone = [...history];
     return clone.reverse();
   };
 
