@@ -12,7 +12,6 @@ export const Container = styled(View)<ContainerProps>`
   padding-left: 30px;
   align-items: flex-end;
   justify-content: flex-end;
-
   flex: ${props => props.flex};
 `;
 

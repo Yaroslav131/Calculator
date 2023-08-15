@@ -7,43 +7,24 @@ export interface Command {
     execute: () => void;
 }
 
+interface IButton {
+    buttonStyle: {
+        backgroundColor: string;
+    };
+    textColor: {
+        color: string;
+    };
+}
+
 export interface IThemeColors {
     background: {
         backgroundColor: string;
     };
     keypadButtons: {
-        resultButton: {
-            buttonStyle: {
-                backgroundColor: string;
-            };
-            textColor: {
-                color: string;
-            };
-        };
-        incrementButton: {
-            buttonStyle: {
-                backgroundColor: string;
-            };
-            textColor: {
-                color: string;
-            };
-        };
-        deleteButton: {
-            buttonStyle: {
-                backgroundColor: string;
-            };
-            textColor: {
-                color: string;
-            };
-        };
-        button: {
-            buttonStyle: {
-                backgroundColor: string;
-            };
-            textColor: {
-                color: string;
-            };
-        };
+        resultButton: IButton;
+        incrementButton: IButton;
+        deleteButton: IButton;
+        button: IButton;
     };
     display: {
         resultTextColor: {

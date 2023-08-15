@@ -1,5 +1,5 @@
-import {StyleSheet, Text} from 'react-native';
-import {styled} from 'styled-components/native';
+import { styled } from 'styled-components/native';
+import { StyleSheet, Text } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
   headerText: {
@@ -13,9 +13,10 @@ export const globalStyles = StyleSheet.create({
 interface StyledTextProps {
   textColor: string;
   fontSize: string;
+  fontWeight: string;
 }
 
-export const StyledText = styled(Text)<StyledTextProps>`
+export const StyledText = styled(Text) <StyledTextProps>`
   font-family: poppins;
   text-align: right;
   font-size: ${props => props.fontSize};
