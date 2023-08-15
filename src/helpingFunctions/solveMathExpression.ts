@@ -1,4 +1,6 @@
-import { maxNumValue, operators } from '../constants';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import { maxNumValue, operators } from '@/constants';
 
 function formatNumber(input: string) {
   const number = parseFloat(input);

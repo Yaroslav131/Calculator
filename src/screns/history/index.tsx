@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable class-methods-use-this */
@@ -8,8 +10,8 @@ import { Dispatch } from '@reduxjs/toolkit';
 
 import { StyledText, globalStyles } from '../../../styles/globalStyles';
 import { Container, ItemContainer } from './styles';
-import { resetHistory } from '../../slices/historySlice';
-import { RootState } from '../../store/store';
+import { resetHistory } from '@/slices/historySlice';
+import { RootState } from '@/store/store';
 
 interface ItemProps {
   inputValue: string;

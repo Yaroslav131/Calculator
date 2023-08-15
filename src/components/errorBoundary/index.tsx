@@ -1,8 +1,10 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 
 import { ErrorBoundaryProps, ErrorBoundaryState } from './types';
-import { ErrorContainer } from './styles';
+import ErrorContainer from './styles';
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {

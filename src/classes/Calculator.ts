@@ -1,6 +1,8 @@
-import solveMathExpression from '../helpingFunctions/solveMathExpression';
-import reverseSign from '../helpingFunctions/reverseSign';
-import isCorrectNumberLenght from '../helpingFunctions/checkNumberLenght';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import solveMathExpression from '@/helpingFunctions/solveMathExpression';
+import reverseSign from '@/helpingFunctions/reverseSign';
+import isCorrectNumberLenght from '@/helpingFunctions/checkNumberLenght';
 
 export default class Calculator {
   public currentValue: string | null = '0';

@@ -1,4 +1,6 @@
-import { maxNumberLangth, splitPattern } from '../constants';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import { maxNumberLangth, splitPattern } from '@/constants';
 
 export default function isCorrectNumberLenght(input: string): boolean {
   const tokens = input.match(splitPattern);

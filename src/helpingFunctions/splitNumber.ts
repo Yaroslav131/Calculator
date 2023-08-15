@@ -1,13 +1,15 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
-import { splitLength } from '../constants';
+import { splitLength } from '@/constants';
 
 export default function splitNumber(number: string) {
   if (number.length > 3) {
     const result: string[] = [];
     const sllitedNum = number.split('');
     let counter = 0;
-    let afterDotArr:string[] = [];
+    let afterDotArr: string[] = [];
 
     const dotIndex = sllitedNum.findIndex((x) => x === '.');
 

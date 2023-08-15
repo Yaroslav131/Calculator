@@ -1,16 +1,18 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import Display from '../../components/display';
-import Keypad from '../../components/keypad';
+import Display from '@/components/display';
+import Keypad from '@/components/keypad';
 import { themeControl } from '../../../assets/images';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import { changeTheme } from '../../slices/themeSlice';
-import Calculator from '../../classes/Calculator';
-import { addToHistory } from '../../slices/historySlice';
-import { Command, HistoryType } from '../../types';
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
+import { changeTheme } from '@/slices/themeSlice';
+import Calculator from '@/classes/Calculator';
+import { addToHistory } from '@/slices/historySlice';
+import { Command, HistoryType } from '@/types';
 
 import { Container } from './styles';
 
