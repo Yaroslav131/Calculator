@@ -1,3 +1,5 @@
+import { splitLength } from "../constants";
+
 export default function splitNumber(number: string) {
     if (number.length > 3) {
         let result: string[] = []
@@ -14,7 +16,7 @@ export default function splitNumber(number: string) {
         for (let index = sllitedNum.length; index >= 0; index--) {
             result.unshift(sllitedNum[index])
 
-            if (counter === 3) {
+            if (counter === splitLength) {
                 if (dotIndex == -1 || dotIndex > index)
                     result.unshift(" ")
                 counter = 0

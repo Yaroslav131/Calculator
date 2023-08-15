@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { changeTheme } from '../../slices/themeSlice';
 import Calculator from '../../classes/Calculator';
 import { addToHistory } from '../../slices/historySlice';
-import { HistoryType } from '../../types';
+import { Command, HistoryType } from '../../types';
 
 import { Container } from './styles';
 
@@ -57,7 +57,7 @@ const CalculatorScren: React.FC<CalculatorScrenProps> = ({ navigation }) => {
       ),
     });
     
-  }, [navigation]);
+  }, [navigation,dispatch]);
 
   return (
     <Container backgroundColor={theme.background.backgroundColor}>

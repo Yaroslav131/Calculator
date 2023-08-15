@@ -1,4 +1,4 @@
-import { operators } from "../constants";
+import { maxNumValue, operators } from "../constants";
 
 export function solveMathExpression(expression: string): string | null {
     let result = calculateMathString(expression)?.toString()
@@ -11,35 +11,25 @@ export function solveMathExpression(expression: string): string | null {
     }
 }
 
-// function replaceExpression(inputString: string): string {   
-//     const pattern = /(\d+(\.\d+)?)\s*-\s*(\d+(\.\d+)?)/g;
-
-
-//     const outputString = inputString.replace(pattern, (_, num1, num2) => `${num1}+-${num2}`);
-
-//     return outputString;
-// }
-
 function formatNumber(input: string) {
     let number = parseFloat(input);
     if (isNaN(number)) {
         return null;
     }
 
-    if (Math.abs(number) >= 1e6) {
+    if (Math.abs(number) >= maxNumValue) {
         return number.toExponential(2);
     } else {
         return number.toFixed(3).replace(/\.?0+$/, "");
     }
 }
 
-
 function calculateMathString(mathString: string): number | null {
     const isOperator = (char: string): boolean => operators.hasOwnProperty(char);
     const isHigherPrecedence = (op1: string, op2: string): boolean =>
         operators[op1] >= operators[op2];
 
-    const infixToRPN = (infix: string[]): string[] => {
+    const resolveBrabches = (infix: string[]): string[] => {
         const outputQueue: string[] = [];
         const operatorStack: string[] = [];
 
@@ -74,7 +64,7 @@ function calculateMathString(mathString: string): number | null {
         return outputQueue;
     };
 
-    const calculateRPN = (rpn: string[]): number | null => {
+    const calculateExpration = (rpn: string[]): number | null => {
         const stack: number[] = [];
 
         for (const token of rpn) {
@@ -83,10 +73,7 @@ function calculateMathString(mathString: string): number | null {
             } else if (isOperator(token)) {
                 const b = stack.pop();
                 const a = stack.pop();
-                console.log("///////////////////////////")
 
-                console.log(token)
-                console.log(a, b)
                 if (a === undefined || b === undefined) {
                     return null;
                 }
@@ -123,13 +110,11 @@ function calculateMathString(mathString: string): number | null {
 
     const tokens = mathString.match(/(?<!\d)(?:(?<!\d)-)?\d+(\.\d+)?|[+\-⨯\/%()]/g);
 
-    console.log(tokens)
-
     if (!tokens) {
         return null;
     }
 
-    const rpn = infixToRPN(tokens);
+    const expression = resolveBrabches(tokens);
 
-    return calculateRPN(rpn);
+    return calculateExpration(expression);
 }

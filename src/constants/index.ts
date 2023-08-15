@@ -47,3 +47,6 @@ export const themeNames={
   dark:"dark",
   light:"light"
 }
+
+export const splitLength=3
+export const maxNumValue =1e6
